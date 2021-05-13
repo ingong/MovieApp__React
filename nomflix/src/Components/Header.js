@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-const Header = styled.header`
+const SHeader = styled.header`
   color: white;
   position: fixed;
   top: 0;
@@ -19,10 +19,12 @@ const List = styled.ul`
   display: flex;
 `;
 
+//styled-component 에 props 주는 방법
 const Item = styled.li`
   width: 80px;
   height: 50px;
   text-align: center;
+  border-bottom: 5px solid ${(props) => (props.current ? "#3498db" : "transparent")};
 `;
 
 const SLink = styled(Link)`
@@ -32,20 +34,23 @@ const SLink = styled(Link)`
   justify-content: center;
 `;
 
-export default () => {
+const Header = ({ location: { pathname } }) => {
+  console.log(pathname);
   return (
-    <Header>
+    <SHeader>
       <List>
-        <Item>
+        <Item current={pathname === "/"}>
           <SLink to='/'>home</SLink>
         </Item>
-        <Item>
+        <Item current={pathname === "/tv"}>
           <SLink to='/tv'>tv</SLink>
         </Item>
-        <Item>
+        <Item current={pathname === "/search"}>
           <SLink to='/search'>search</SLink>
         </Item>
       </List>
-    </Header>
+    </SHeader>
   );
 };
+
+export default withRouter(Header);
