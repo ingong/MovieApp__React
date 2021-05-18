@@ -19,7 +19,6 @@ const List = styled.ul`
   display: flex;
 `;
 
-//styled-component 에 props 주는 방법
 const Item = styled.li`
   width: 80px;
   height: 50px;

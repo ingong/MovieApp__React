@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import React from "react";
 import SearchPresenter from "./SearchPresenter";
 import { moviesApi, tvApi } from "../../api";
@@ -10,11 +11,23 @@ export default class extends React.Component {
     error: null,
   };
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault();
     const { searchTerm } = this.state;
     if (searchTerm !== "") {
       this.searchByTerm();
     }
+  };
+
+  updateTerm = (event) => {
+    console.log(event.target.value);
+    const {
+      target: { value },
+    } = event;
+    console.log(value);
+    this.setState({
+      searchTerm: value,
+    });
   };
   searchByTerm = async () => {
     const { searchTerm } = this.state;
@@ -45,6 +58,7 @@ export default class extends React.Component {
         searchTerm={searchTerm}
         loading={loading}
         error={error}
+        updateTerm={this.updateTerm}
         handleSubmit={this.handleSubmit}
       />
     );
